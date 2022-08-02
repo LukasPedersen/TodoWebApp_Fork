@@ -62,14 +62,14 @@ namespace TodoWebApp.XUnitUITest
 
                 #region Verify URL
                 //URL
-                _testOutputHelper.WriteLine($"Title: {pageUrl}");
-                _testOutputHelper.WriteLine($"Title count: {urlLength}");
+                _testOutputHelper.WriteLine($"PageUrl: {pageUrl}");
+                _testOutputHelper.WriteLine($"Url Length: {urlLength}");
                 #endregion
 
                 #region Verify Source
                 //Source
-                _testOutputHelper.WriteLine($"Title: {pageSourceCode}");
-                _testOutputHelper.WriteLine($"Title count: {pageSourceLength}");
+                _testOutputHelper.WriteLine($"Page Source: {pageSourceCode}");
+                _testOutputHelper.WriteLine($"Source Length: {pageSourceLength}");
                 #endregion
 
                 #endregion
@@ -83,8 +83,10 @@ namespace TodoWebApp.XUnitUITest
             //SETUP
             new DriverManager().SetUpDriver(new ChromeConfig());
 
+            //ATTEMPT
             using (IWebDriver driver = new ChromeDriver())
             {
+                //VERIFY
                 driver.Navigate().GoToUrl("http://shop.demoqa.com/");
                 driver.FindElement(By.ClassName("cart-button")).Click();
                 driver.Navigate().Back();
@@ -92,10 +94,6 @@ namespace TodoWebApp.XUnitUITest
                 driver.Navigate().GoToUrl("http://shop.demoqa.com/");
                 driver.Navigate().Refresh();
             }
-
-            //ATTEMPT
-
-            //VERIFY
         }
 
         [Fact]
