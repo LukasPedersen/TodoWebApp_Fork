@@ -36,6 +36,49 @@ public class TodoServiceTest
 
     }
 
+    //Selv lavet
+    [Fact]
+    public void Service_GetAmountOfToDos()
+    {
+        //SETUP
+        var options = SqliteInMemory.CreateOptions<AppDbContext>();
+        using var context = new AppDbContext(options);
+        context.Database.EnsureCreated();
+        context.SeedDatabaseTodoItems();
+        var service = new TodoService(context);
+
+        //ATTEMPT
+        int amount = context.TodoItems.Count();
+
+        //VERIFY
+        amount.ShouldEqual(3);
+    }
+
+    //Selv lavet
+    [Theory]
+    [InlineData(3)]
+    public void Service_GetAmountOfSubTask_In_ToDo(int _ToDoId)
+    {
+        //SETUP
+        var options = SqliteInMemory.CreateOptions<AppDbContext>();
+        using var context = new AppDbContext(options);
+        context.Database.EnsureCreated();
+        context.SeedDatabaseTodoItems();
+        var service = new TodoService(context);
+
+        //ATTEMPT
+        TodoItem todoItem = context.TodoItems
+            .AsNoTracking()
+            .Include(tdi => tdi.SubTasks)
+            .Where(tdi => tdi.Id == _ToDoId)
+            .First();
+
+        int amount = todoItem.SubTasks.Count();
+
+        //VERIFY
+        Assert.Equal(1, amount);
+    }
+
     [Fact]
     public async Task Service_GetAll_and_GetAllNotCompleted_and_GetAllNotCompleted()
     {
