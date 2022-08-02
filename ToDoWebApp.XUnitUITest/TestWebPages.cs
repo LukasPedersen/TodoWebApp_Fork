@@ -88,9 +88,57 @@ namespace TodoWebApp.XUnitUITest
                 driver.Navigate().GoToUrl("http://shop.demoqa.com/");
                 driver.FindElement(By.ClassName("cart-button")).Click();
                 driver.Navigate().Back();
+                driver.Navigate().Forward();
+                driver.Navigate().GoToUrl("http://shop.demoqa.com/");
+                driver.Navigate().Refresh();
             }
 
             //ATTEMPT
+
+            //VERIFY
+        }
+
+        [Fact]
+        [Trait("Category", "Smoke")]
+        public void PracticeExercise3()
+        {
+            //SETUP
+            new DriverManager().SetUpDriver(new ChromeConfig());
+            string message = "it's all ogre now";
+
+            //ATTEMPT
+            using(IWebDriver driver = new ChromeDriver())
+            {
+                driver.Manage().Window.Maximize();
+                driver.Navigate().GoToUrl("https://en.wikipedia.org/wiki/AI_takeover#:~:text=An%20AI%20takeover%20is%20a,away%20from%20the%20human%20species.");
+                System.Threading.Thread.Sleep(100);
+                foreach (char letter in message)
+                {
+                    driver.FindElement(By.XPath("/html[1]/body[1]/div[4]/div[1]/div[2]/div[1]/div[1]/form[1]/div[1]/input[1]")).SendKeys(letter.ToString());
+                    System.Threading.Thread.Sleep(100);
+                }
+                System.Threading.Thread.Sleep(3000);
+
+                driver.FindElement(By.XPath("/html[1]/body[1]/div[3]/div[3]/div[5]/div[1]/div[3]/ul[1]/li[1]/ul[1]/li[2]/a[1]/span[2]")).Click();
+                System.Threading.Thread.Sleep(300);
+                driver.FindElement(By.XPath("/html[1]/body[1]/div[3]/div[3]/div[5]/div[1]/div[3]/ul[1]/li[4]/a[1]/span[2]")).Click();
+                System.Threading.Thread.Sleep(300);
+                driver.FindElement(By.XPath("/html[1]/body[1]/div[3]/div[3]/div[5]/div[1]/div[3]/ul[1]/li[1]/ul[1]/li[1]/ul[1]/li[2]/a[1]/span[2]")).Click();
+                System.Threading.Thread.Sleep(5000);
+
+                driver.Navigate().GoToUrl("https://hacker-simulator.com");
+                driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[2]/span[1]")).Click();
+                System.Threading.Thread.Sleep(100);
+                driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[3]/span[4]")).Click();
+                System.Threading.Thread.Sleep(100);
+                driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]")).Click();
+                System.Threading.Thread.Sleep(10000);
+
+                driver.Navigate().GoToUrl("https://screen.vercel.app/win10-crash");
+                driver.FindElement(By.TagName("body")).SendKeys(Keys.F11);
+                System.Threading.Thread.Sleep(60000);
+
+            }
 
             //VERIFY
         }
